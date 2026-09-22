@@ -1,0 +1,114 @@
+﻿<section class="catalogo-container">
+  <!-- Topo: Título e Apresentação -->
+  <div class="catalogo-header">
+    <h2>Vitrine de Produtos</h2>
+    <p>Explore nosso catálogo integrado à Fake Store API</p>
+  </div>
+
+  <!-- Controles: Barra de busca e filtros de categoria -->
+  <div class="controles-busca">
+    <div class="campo-busca">
+      <span class="icone-busca">🔍</span>
+      <input 
+        type="text" 
+        [(ngModel)]="termoBusca" 
+        (input)="aplicarFiltros()"
+        placeholder="Buscar produto por nome ou descrição..."
+      />
+      <button 
+        *ngIf="termoBusca" 
+        (click)="termoBusca = ''; aplicarFiltros()" 
+        class="btn-limpar-busca"
+        title="Limpar busca"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Pílulas de filtro por categoria -->
+    <div class="categorias-filtro">
+      <button 
+        type="button" 
+        class="categoria-chip" 
+        [class.ativo]="categoriaSelecionada === 'todas'"
+        (click)="selecionarCategoria('todas')"
+      >
+        Todas as categorias
+      </button>
+
+      <button 
+        *ngFor="let cat of categorias" 
+        type="button" 
+        class="categoria-chip"
+        [class.ativo]="categoriaSelecionada === cat"
+        (click)="selecionarCategoria(cat)"
+      >
+        {{ cat }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Estado de Carregando (Loading) -->
+  <div *ngIf="carregando" class="estado-feedback">
+    <div class="spinner"></div>
+    <p>Carregando produtos da Fake Store API...</p>
+  </div>
+
+  <!-- Estado de Erro -->
+  <div *ngIf="!carregando && erro" class="estado-feedback erro">
+    <p>⚠️ {{ erro }}</p>
+    <button (click)="carregarProdutos()" class="btn-tentar-novamente">
+      Tentar novamente
+    </button>
+  </div>
+
+  <!-- Estado Vazio (Sem resultados nos filtros) -->
+  <div *ngIf="!carregando && !erro && produtosFiltrados.length === 0" class="estado-feedback vazio">
+    <span class="icone-vazio">📦</span>
+    <h3>Nenhum produto encontrado</h3>
+    <p>Tente alterar o termo da busca ou a categoria selecionada.</p>
+  </div>
+
+  <!-- Grid de Produtos -->
+  <div *ngIf="!carregando && !erro && produtosFiltrados.length > 0" class="produtos-grid">
+    <article *ngFor="let produto of produtosFiltrados" class="produto-card">
+      <!-- Botão Favoritar / Wishlist -->
+      <button 
+        type="button"
+        class="btn-wishlist"
+        [class.favoritado]="estaNaWishlist(produto.id)"
+        (click)="alternarWishlist(produto, $event)"
+        [title]="estaNaWishlist(produto.id) ? 'Remover dos favoritos' : 'Adicionar à Wishlist'"
+      >
+        <span *ngIf="estaNaWishlist(produto.id)">❤️</span>
+        <span *ngIf="!estaNaWishlist(produto.id)">🤍</span>
+      </button>
+
+      <!-- Imagem do Produto -->
+      <div class="produto-imagem-wrapper">
+        <img [src]="produto.image" [alt]="produto.title" loading="lazy" />
+      </div>
+
+      <!-- Informações -->
+      <div class="produto-info">
+        <span class="produto-categoria">{{ produto.category }}</span>
+        <h3 class="produto-titulo" [title]="produto.title">{{ produto.title }}</h3>
+
+        <!-- Avaliação (Rating) -->
+        <div class="produto-rating" *ngIf="produto.rating">
+          <span class="estrelas">★ {{ produto.rating.rate }}</span>
+          <span class="contagem-reviews">({{ produto.rating.count }})</span>
+        </div>
+
+        <div class="produto-rodape">
+          <span class="produto-preco">{{ produto.price | currency:'USD':'symbol':'1.2-2' }}</span>
+          
+          <!-- Botão que levará para a tela da Pessoa 2 (/produto/:id) -->
+          <a [routerLink]="['/produto', produto.id]" class="btn-detalhes">
+            Ver detalhes
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,50 @@
+﻿<section class="wishlist-container">
+  <div class="wishlist-header">
+    <div>
+      <h2>Minha Lista de Desejos ❤️</h2>
+      <p>Gerencie os produtos que você salvou para ver ou comprar depois</p>
+    </div>
+
+    <button 
+      *ngIf="(itensWishlist$ | async)?.length" 
+      (click)="limparTudo()" 
+      class="btn-limpar"
+    >
+      Limpar lista
+    </button>
+  </div>
+
+  <!-- Lista Vazia -->
+  <div *ngIf="(itensWishlist$ | async)?.length === 0" class="wishlist-vazia">
+    <div class="icone-coracao">🤍</div>
+    <h3>Sua lista de desejos está vazia</h3>
+    <p>Nenhum produto foi favoritado ainda. Navegue pela nossa vitrine e clique no coração para salvar seus itens favoritos!</p>
+    <a routerLink="/" class="btn-explorar">
+      Explorar Produtos
+    </a>
+  </div>
+
+  <!-- Grid de Produtos Favoritados -->
+  <div *ngIf="(itensWishlist$ | async) as itens" class="wishlist-grid">
+    <article *ngFor="let item of itens" class="wishlist-card">
+      <div class="card-imagem">
+        <img [src]="item.image" [alt]="item.title" loading="lazy" />
+      </div>
+
+      <div class="card-detalhes">
+        <span class="categoria">{{ item.category }}</span>
+        <h3 class="titulo" [title]="item.title">{{ item.title }}</h3>
+        <p class="preco">{{ item.price | currency:'USD':'symbol':'1.2-2' }}</p>
+
+        <div class="acoes">
+          <a [routerLink]="['/produto', item.id]" class="btn-ver">
+            Ver detalhes
+          </a>
+          <button (click)="remover(item.id)" class="btn-remover-wishlist" title="Remover da lista">
+            Remover
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
