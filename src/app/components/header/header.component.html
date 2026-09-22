@@ -1,0 +1,31 @@
+﻿<header class="app-header">
+  <div class="header-container">
+    <a routerLink="/" class="logo">
+      <span class="logo-icon">🛍️</span>
+      <span class="logo-text">Fake<strong>Store</strong></span>
+      <span class="badge-squad">Squad WMC</span>
+    </a>
+
+    <nav class="nav-links">
+      <a 
+        routerLink="/" 
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link"
+      >
+        Produtos
+      </a>
+      <a 
+        routerLink="/wishlist" 
+        routerLinkActive="active" 
+        class="nav-link wishlist-link"
+      >
+        <span>Wishlist</span>
+        <span class="heart-icon">❤️</span>
+        <span class="wishlist-badge" *ngIf="(wishlistCount$ | async) as count">
+          {{ count }}
+        </span>
+      </a>
+    </nav>
+  </div>
+</header>
