@@ -1,0 +1,20 @@
+<div *ngIf="produto">
+    <div class="card-detalhes">
+      <div class="produto-imagem">
+        <img [src]="produto.image" [alt]="produto.title">
+      </div>
+      <h2>{{produto.title}}</h2>
+      <div class="produto-informacoes">
+        <span class="rotulo"> Categoria: </span>
+        <span class="valor">{{ produto.category }}</span>
+      </div>
+      <div class="produto-informacoes">
+        <span class="rotulo"> Descrição: </span>
+        <span class="valor">{{ produto.description }}</span>
+      </div>
+
+      <a routerLink="/" class="btn-detalhes">
+        Ver Vitrine de produtos
+      </a>
+</div>
+
