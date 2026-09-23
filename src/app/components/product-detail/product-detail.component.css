@@ -1,0 +1,83 @@
+.card-detalhes {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+}
+img {
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 16px;
+}
+.produto-imagem {
+  display: flex;
+  justify-content: center; /* Centraliza a imagem horizontalmente */
+  align-items: center;     /* Centraliza verticalmente se houver altura */
+  width: 100%;
+  background-color: #F8FAFC; 
+  border-radius: 8px;
+  padding: 16px;
+}
+.produto-imagem img {
+  height: 200px;
+  object-fit: contain;
+
+}
+
+h2 {
+  font-size: 19px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 12px;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  height: auto;
+  line-height: 1.4;
+  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap:break-word;
+}
+
+.produto-informacoes {
+  text-align:left;
+  margin-bottom: 12px;
+  text-transform: capitalize;
+}
+
+.produto-informacoes .rotulo{
+  font-weight: bold;
+  color:#0f172a;
+  margin-right: 4px;
+}
+
+.produto.informacoes .valor{
+  color:#0f172a;
+  text-transform: capitalize;
+  text-justify: inter-word;
+  text-align: justify; /* Alinha o texto em ambas as margens */
+  line-height: 1.5;    /* Melhora o espaçamento entre as linhas para facilitar a leitura */
+  color: #4a5568; 
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+a {
+  display: inline-block;
+  margin-top: 16px;
+  color: #6b2d8c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn-detalhes {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6366f1;
+  background-color: #eef2ff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
