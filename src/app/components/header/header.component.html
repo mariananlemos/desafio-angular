@@ -26,6 +26,19 @@
           {{ count }}
         </span>
       </a>
+    
+      <!--
+      <a 
+        routerLink="/cartList" 
+        routerLinkActive="active" 
+        class="nav-link cartListist-link"
+      >
+        <span class="cart-icon">🛒</span>
+        <span class="cartList-badge" *ngIf="(cartListCount$ | async) as count">
+          {{ count }}
+        </span>
+      </a>
+      -->
     </nav>
   </div>
 </header>

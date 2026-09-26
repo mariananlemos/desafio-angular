@@ -1,0 +1,64 @@
+<section class="cartList-container">
+  <div class="cartList-header">
+    <div>
+      <h2>Carrinho 🛒</h2>
+      <p>Lista de produtos no carrinho</p>
+    </div>
+
+    <button 
+      *ngIf="(itensCartList$ | async)?.length" 
+      (click)="limparTudo()" 
+      class="btn-limpar"
+    >
+      Esvaziar Carrinho
+    </button>
+  </div>
+
+  <!-- Carrinho Vazio -->
+  <div *ngIf="(itensCartList$ | async)?.length === 0" class="cartList-vazia">
+    <div class="icone-carrinho">🛒</div>
+    <h3>Seu carrinho está vazio</h3>
+    <p>Nenhum produto adicionado ao carrinho!</p>
+    <a routerLink="/" class="btn-explorar">
+      Explorar Produtos
+    </a>
+  </div>
+
+  <!-- Grid de Produtos Selecionados -->
+  <div *ngIf="(itensCartList$ | async) as itens" class="cartList-grid">
+    <article *ngFor="let item of itens" class="cartList-card">
+      <div class="card-imagem">
+        <img [src]="item.image" [alt]="item.title" loading="lazy" />
+      </div>
+
+      <div class="card-detalhes">
+        <span class="categoria">{{ item.category }}</span>
+        <h3 class="titulo" [title]="item.title">{{ item.title }}</h3>
+        <p class="preco">{{ item.price | currency:'USD':'symbol':'1.2-2' }}</p>
+
+      <div class="quantidade">
+        <button (click)="alterarQuantidade">
+        </button>
+        <input 
+        type="number"
+        placeholder=""
+        />
+      </div>
+
+        <div class="acoes">
+          <a [routerLink]="['/produto', item.id]" class="btn-ver">
+            Ver detalhes
+          </a>
+          <button (click)="remover(item.id)" class="btn-remover-cartList" title="Remover do carrinho">
+            Remover
+          </button>
+        </div>
+      </div>  
+    </article>
+  </div>
+</section>
+
+
+      <div>
+        Total
+      </div>

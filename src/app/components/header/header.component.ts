@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { WishlistService } from '../../services/wishlist.service';
+//import { CartListService } from '../../services/cartlist.service';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,11 @@ import { WishlistService } from '../../services/wishlist.service';
 })
 export class HeaderComponent {
   wishlistCount$: Observable<number>;
+  //cartListCount$: Observable<number>;
 
-  constructor(private wishlistService: WishlistService) {
+
+  constructor(private wishlistService: WishlistService /*, private cartListService: CartListService*/) {
     this.wishlistCount$ = this.wishlistService.count$;
+    //this.cartListCount$ = this.cartListService.count$;
   }
 }
