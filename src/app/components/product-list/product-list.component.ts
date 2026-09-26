@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { WishlistService } from '../../services/wishlist.service';
+//import { CartListService } from '../../services/cartlist.service';
 
 @Component({
   selector: 'app-product-list',
@@ -21,17 +22,21 @@ export class ProductListComponent implements OnInit {
   termoBusca: string = '';
   categoriaSelecionada: string = 'todas';
 
+  produtosOrdenados: string = 'avaliacao';
+
   carregando: boolean = true;
   erro: string | null = null;
 
   constructor(
     private productService: ProductService,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    //private cartListService: CartListService
   ) {}
 
   ngOnInit(): void {
     this.carregarCategorias();
     this.carregarProdutos();
+    this.ordenarProdutos();
   }
 
   // Busca lista de categorias da API
@@ -87,6 +92,18 @@ export class ProductListComponent implements OnInit {
   selecionarCategoria(categoria: string): void {
     this.categoriaSelecionada = categoria;
     this.aplicarFiltros();
+    this.ordenarProdutos();
+  }
+
+  // Ordena os produtos pela opção selecionada
+  ordenarProdutos() {
+    if(this.produtosOrdenados === 'avaliacao'){
+      this.produtosFiltrados.sort((a,b) => b.rating.rate - a.rating.rate)
+    } else if(this.produtosOrdenados === 'menor-preco'){
+      this.produtosFiltrados.sort((a,b) => a.price - b.price)
+    } else if(this.produtosOrdenados === 'maior-preco'){
+      this.produtosFiltrados.sort((a,b) => b.price - a.price)
+    }
   }
 
   // Alterna o produto na Wishlist (Lista de Desejos)
@@ -100,4 +117,18 @@ export class ProductListComponent implements OnInit {
   estaNaWishlist(produtoId: number): boolean {
     return this.wishlistService.isInWishlist(produtoId);
   }
+
+  /*
+  // Altera o produto no Carrinho
+  alterarCarrinho(produto: Product, event: Event): void {
+    event.stopPropagation();
+    event.preventDefault();
+    this.cartListService.toggleCartList(produto);
+  }
+
+  // Verifica se o produto já esta no carrinho
+  estaNoCarrinho(produtoId: number): boolean {
+    return this.cartListService.isInCartList(produtoId);
+  }*/
+
 }

@@ -10,7 +10,7 @@
     <div class="campo-busca">
       <span class="icone-busca">🔍</span>
       <input 
-        type="text" 
+        type="text"
         [(ngModel)]="termoBusca" 
         (input)="aplicarFiltros()"
         placeholder="Buscar produto por nome ou descrição..."
@@ -48,6 +48,16 @@
     </div>
   </div>
 
+  <!-- Ordenação de produtos -->
+  <div class="ordenar-produtos">
+    <label for="sort">Ordenar por:</label>
+    <select id="ordenarProdutos" name="sort" [(ngModel)]="produtosOrdenados" (change)="ordenarProdutos()">
+    <option value="avaliacao" selected>Melhor avaliado</option>
+    <option value="maior-preco">Maior preço</option>
+    <option value="menor-preco">Menor preço</option>
+    </select>
+  </div>
+
   <!-- Estado de Carregando (Loading) -->
   <div *ngIf="carregando" class="estado-feedback">
     <div class="spinner"></div>
@@ -83,7 +93,21 @@
         <span *ngIf="estaNaWishlist(produto.id)">❤️</span>
         <span *ngIf="!estaNaWishlist(produto.id)">🤍</span>
       </button>
-
+      
+      <!-- Botão Carrinho -->
+      <!--
+      <button 
+        type="button"
+        class="btn-carrinho"
+        [class.carrinho]="estaNoCarrinho(produto.id)"
+        (click)="alterarCarrinho(produto, $event)"
+        [title]="estaNoCarrinho(produto.id) ? 'Remover do carrinho' : 'Adicionar ao carrinho'"
+      >
+        <span *ngIf="estaNoCarrinho(produto.id)">🛍️</span>
+        <span *ngIf="!estaNoCarrinho(produto.id)">🛒</span>
+      </button>
+      -->
+      
       <!-- Imagem do Produto -->
       <div class="produto-imagem-wrapper">
         <img [src]="produto.image" [alt]="produto.title" loading="lazy" />
