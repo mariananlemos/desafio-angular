@@ -27,8 +27,7 @@
         </span>
       </a>
     
-      <!--
-      <a 
+      <!-- <a 
         routerLink="/cartList" 
         routerLinkActive="active" 
         class="nav-link cartListist-link"
@@ -37,8 +36,15 @@
         <span class="cartList-badge" *ngIf="(cartListCount$ | async) as count">
           {{ count }}
         </span>
+      </a> -->
+
+      <a 
+        routerLink="/checkout" 
+        routerLinkActive="active" 
+        class="nav-link"
+      >
+        <span>Checkout 💳</span>
       </a>
-      -->
     </nav>
   </div>
 </header>

@@ -1,0 +1,98 @@
+<section class="checkout-container">
+  <h2>Finalizar Compra 🛍️</h2>
+  <p>Preencha seus dados para concluir o pedido</p>
+
+  <!-- Mensagem de Sucesso ao Finalizar -->
+  <div *ngIf="formEnviado" class="sucesso-card">
+    <div class="sucesso-icone">🎉</div>
+    <h3>Pedido Confirmado com Sucesso!</h3>
+    <p>Obrigado por comprar na FakeStore, <strong>{{ f['nome'].value }}</strong>!</p>
+    <p>Enviamos os detalhes do rastreio para <strong>{{ f['email'].value }}</strong>.</p>
+    <a routerLink="/" class="btn-voltar">Voltar para a Loja</a>
+  </div>
+
+  <!-- Formulário Reativo -->
+  <form *ngIf="!formEnviado" [formGroup]="checkoutForm" (ngSubmit)="finalizarPedido()" class="checkout-form">
+    
+    <!-- Campo Nome -->
+    <div class="form-group">
+      <label for="nome">Nome Completo *</label>
+      <input 
+        id="nome" 
+        type="text" 
+        formControlName="nome" 
+        placeholder="Ex: Maria Silva"
+        [class.input-erro]="f['nome'].invalid && f['nome'].touched"
+      />
+      <small *ngIf="f['nome'].errors?.['required'] && f['nome'].touched" class="msg-erro">
+        O nome é obrigatório.
+      </small>
+      <small *ngIf="f['nome'].errors?.['minlength'] && f['nome'].touched" class="msg-erro">
+        O nome deve ter pelo menos 3 caracteres.
+      </small>
+    </div>
+
+    <!-- Campo E-mail -->
+    <div class="form-group">
+      <label for="email">E-mail *</label>
+      <input 
+        id="email" 
+        type="email" 
+        formControlName="email" 
+        placeholder="maria@email.com"
+        [class.input-erro]="f['email'].invalid && f['email'].touched"
+      />
+      <small *ngIf="f['email'].errors?.['required'] && f['email'].touched" class="msg-erro">
+        O e-mail é obrigatório.
+      </small>
+      <small *ngIf="f['email'].errors?.['email'] && f['email'].touched" class="msg-erro">
+        Informe um e-mail válido.
+      </small>
+    </div>
+
+    <!-- Campo Endereço -->
+    <div class="form-group">
+      <label for="endereco">Endereço de Entrega *</label>
+      <input
+        id="endereco"
+        type="text"
+        formControlName="endereco"
+        placeholder="Rua, número e bairro"
+        [class.input-erro]="f['endereco'].invalid && f['endereco'].touched"
+      />
+      <small *ngIf="f['endereco'].errors?.['required'] && f['endereco'].touched" class="msg-erro">
+        O endereço é obrigatório.
+      </small>
+    </div>
+
+    <!-- Campo CEP -->
+    <div class="form-group">
+      <label for="cep">CEP *</label>
+      <input
+        id="cep"
+        type="text"
+        formControlName="cep"
+        placeholder="00000-000"
+        [class.input-erro]="f['cep'].invalid && f['cep'].touched"
+      />
+      <small *ngIf="f['cep'].errors?.['required'] && f['cep'].touched" class="msg-erro">
+        O CEP é obrigatório.
+      </small>
+      <small *ngIf="f['cep'].errors?.['pattern'] && f['cep'].touched" class="msg-erro">
+        Formato de CEP inválido (Ex: 12345-678).
+      </small>
+    </div>
+
+    <!-- Forma de Pagamento -->
+    <div class="form-group">
+      <label for="pagamento">Forma de Pagamento *</label>
+      <select id="pagamento" formControlName="pagamento">
+        <option value="cartao">Cartão de Crédito</option>
+        <option value="pix">PIX</option>
+        <option value="boleto">Boleto Bancário</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn-confirmar">Confirmar e Pagar</button>
+  </form>
+</section>
