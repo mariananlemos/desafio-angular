@@ -42,3 +42,7 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Diversos
+# tree src /F /A > estrutura.txt
+estrutura.txt
